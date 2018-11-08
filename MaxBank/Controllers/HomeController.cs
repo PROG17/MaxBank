@@ -5,14 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MaxBank.Models;
+using MaxBank.Data;
 
 namespace MaxBank.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly BankRepository _bankRepository;
+
+        public HomeController(BankRepository bankRepository)
+        {
+            _bankRepository = bankRepository;
+        }
+        
+       
         public IActionResult Index()
         {
-            return View();
+            
+            return View(_bankRepository.Customers);
         }
 
         public IActionResult About()
