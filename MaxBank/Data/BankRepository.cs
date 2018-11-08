@@ -59,6 +59,28 @@ namespace MaxBank.Data
             }
         };
 
+        public void Withdraw(int input, int accountId)
+        {
+
+            var customer = Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First());
+            var account = customer.Accounts.Where(a => a.Id == accountId).First();
+
+            //Lägger till det man skrivit in
+            account.Balance += input;
+
+
+        }
+
+        public void Deposit(int input, int accountId)
+        {
+            var customer = Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First());
+            var account = customer.Accounts.Where(a => a.Id == accountId).First();
+
+            //Tar bort det man skrivit in
+            account.Balance -= input;
+
+        }
+
     }
 }
 
