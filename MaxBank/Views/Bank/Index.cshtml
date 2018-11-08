@@ -7,7 +7,7 @@
 <h2>Hello please withdraw or deposit some money</h2>
 <br />
 <br />
-@if (Model.Message == "Wrong account number!")
+@if (Model.Message == "Wrong account number!" || Model.Message == "Withdraw failed! You cannot withdraw that amount!")
 {
     <h4 style="font-weight: bold; color:red">@Model.Message</h4>
 

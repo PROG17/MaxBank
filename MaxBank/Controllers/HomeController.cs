@@ -22,7 +22,7 @@ namespace MaxBank.Controllers
         public IActionResult Index()
         {
             
-            return View(_bankRepository.Customers);
+            return View(BankRepository.Customers);
         }
 
         public IActionResult About()

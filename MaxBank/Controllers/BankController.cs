@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MaxBank.Data;
+using MaxBank.Models;
 using MaxBank.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace MaxBank.Controllers
     public class BankController : Controller
     {
         private readonly BankRepository _bankRepository;
-
+        
         public BankController(BankRepository bankRepository)
         {
             _bankRepository = bankRepository;
@@ -28,7 +29,7 @@ namespace MaxBank.Controllers
         public IActionResult Index(string button, int accountId, int amount)
         {
             var vm = new BankActionViewModel();
-            var customer = _bankRepository.Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First());
+            var customer = BankRepository.Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First());
 
             if (customer != null)
             {
