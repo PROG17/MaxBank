@@ -8,7 +8,12 @@ namespace MaxBank.Data
 {
     public class BankRepository
     {
-        public List<Customer> Customers = new List<Customer>()
+        public static List<Customer> Customers { get; set; }
+        public BankRepository()
+        {
+            if (Customers == null)
+            {
+            Customers = new List<Customer>()
         {
             new Customer()
             {
@@ -58,6 +63,22 @@ namespace MaxBank.Data
 
             }
         };
+
+            }
+
+        }
+        public void Withdraw(int input, int accountId)
+        {
+
+            Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First()).Accounts.FirstOrDefault(a => a.Id == accountId).Balance -= input;
+
+        }
+
+        public void Deposit(int input, int accountId)
+        {
+            Customers.FirstOrDefault(c => c.Accounts.Select(a => a.Id == accountId).First()).Accounts.FirstOrDefault(a => a.Id == accountId).Balance += input;
+      
+        }
 
     }
 }
