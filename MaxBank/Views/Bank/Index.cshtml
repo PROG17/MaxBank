@@ -1,0 +1,46 @@
+﻿@model MaxBank.ViewModels.BankActionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Hello please withdraw or deposit some money</h2>
+<br />
+<br />
+@if (Model.Message == "Wrong account number!" || Model.Message == "Withdraw failed! You cannot withdraw that amount!")
+{
+    <h4 style="font-weight: bold; color:red">@Model.Message</h4>
+
+}
+else if (Model.Message != null)
+{
+    <h4 style="font-weight: bold; color:lawngreen">@Model.Message</h4>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountId" class="control-label"></label>
+                <input asp-for="AccountId" class="form-control" name="accountId" />
+                <span asp-validation-for="AccountId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" name="amount" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Withdraw" class="btn btn-danger" name="button" />
+                <input type="submit" value="Deposit" class="btn btn-success" name="button" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
