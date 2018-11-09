@@ -80,7 +80,7 @@ namespace MaxBankTest
 
             Assert.Equal(initialBalance1, BankRepository.Customers[1].Accounts[0].Balance);
             Assert.Equal(initialBalance, BankRepository.Customers[0].Accounts[0].Balance);
-            Assert.Equal("Täckning saknas", result);
+            Assert.Equal("Insuffiecient amount, transfer failed.", result);
         }
     }
 }
