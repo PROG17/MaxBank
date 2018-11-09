@@ -8,6 +8,7 @@ namespace MaxBankTest
     public class MaxBankUnitTest
     {
         BankRepository BankRepository = new BankRepository();
+
         [Fact]
         public void Withdraw()
         {
@@ -15,7 +16,6 @@ namespace MaxBankTest
             var customer = BankRepository.Customers.First();
             var account = customer.Accounts.First();
             account.Balance += input;
-
 
             Assert.Equal(250, account.Balance);
         }
@@ -28,7 +28,7 @@ namespace MaxBankTest
             var account = customer.Accounts.First();
             account.Balance -= input;
 
-            Assert.Equal(150, account.Balance);
+            Assert.Equal(200, account.Balance);
         }
 
         [Fact]
@@ -55,9 +55,32 @@ namespace MaxBankTest
         }
 
         [Fact]
-        public void Transfer()
+        public void Check_Balance_Transfer_From_Account()
         {
+            BankRepository.Customers[0].Accounts[0].Transfer(2, 200);
 
+            Assert.Equal(0, BankRepository.Customers[0].Accounts[0].Balance);
+        }
+
+        [Fact]
+        public void Check_Balance_Transfer_To_Account()
+        {
+            BankRepository.Customers[0].Accounts[0].Transfer(2, 200);
+
+            Assert.Equal(450, BankRepository.Customers[1].Accounts[0].Balance);
+        }
+
+        [Fact]
+        public void Check_Over_Transfer_From_Account()
+        {
+            var initialBalance1 = BankRepository.Customers[1].Accounts[0].Balance;
+            var initialBalance = BankRepository.Customers[0].Accounts[0].Balance;
+
+            var result = BankRepository.Customers[0].Accounts[0].Transfer(2, 2000);
+
+            Assert.Equal(initialBalance1, BankRepository.Customers[1].Accounts[0].Balance);
+            Assert.Equal(initialBalance, BankRepository.Customers[0].Accounts[0].Balance);
+            Assert.Equal("Insuffiecient amount, transfer failed.", result);
         }
     }
 }
