@@ -9,6 +9,20 @@ namespace MaxBank.Data
     public class BankRepository
     {
         public static List<Customer> Customers { get; set; }
+
+        public static Account GetAccountFromAccountNumber(int AccountNumber)
+        {
+            foreach (var item in Customers)
+            {
+                var acc = item.Accounts.Where(x => x.Id == AccountNumber).FirstOrDefault();
+                if(acc != null)
+                {
+                    return acc;
+                }
+            }
+            return null;
+        }
+
         public BankRepository()
         {
             if (Customers == null)

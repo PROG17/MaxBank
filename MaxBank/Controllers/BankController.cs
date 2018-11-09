@@ -64,5 +64,32 @@ namespace MaxBank.Controllers
 
             return View(vm);
         }
+
+        [HttpGet]
+        public IActionResult TransferMoney()
+        {
+            return View("TransferMoney");
+        }
+
+        [HttpPost]
+        public IActionResult TransferMoney(TransferViewModel vm)
+        {
+            if(!ModelState.IsValid)
+            {
+                vm.Message = "Failed to transfer, please check your inputs.";
+                return View("TransferMoney", vm);
+            };
+            var acc = BankRepository.GetAccountFromAccountNumber(vm.FromAccountId);
+            if (acc == null)
+            {
+                vm.Message = "Wrong account information. No accounts found with account number: " + vm.FromAccountId;
+            }
+            else
+            {
+                vm.Message = BankRepository.GetAccountFromAccountNumber(vm.FromAccountId).Transfer(vm.ToAccountId, vm.Amount);
+            }
+
+            return View("TransferMoney",vm);
+        }
     }
 }
